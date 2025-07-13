@@ -9,7 +9,7 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: '/lists/:id',
+      path: '/lists/:list_name_encoded',
       component: () => import('../views/BestSellers.vue'),
     },
   ],
