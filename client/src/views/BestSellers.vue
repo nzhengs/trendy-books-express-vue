@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import Lists from '@/components/Lists.vue'
 
 </script>
 
 <template>
   <main>
-    <Lists />
+    <h2>Best Sellers</h2>
   </main>
 </template>
