@@ -6,17 +6,14 @@ import { useRoute } from 'vue-router'
 const listName = useRoute().params.list_name_encoded
 
 const list = ref<List | null>(null)
-const books = ref<Book[]>([])
 const errorMessage = ref<string | null>(null)
 
 onMounted(() => {
-  fetch('/api/books')
+  fetch('/api/books/lists/' + listName)
     .then((res) => res.json())
-    .then((res) => {
+    .then((data) => {
       errorMessage.value = null
-      const lists: List[] = res.results.lists
-      list.value = lists.find((list) => list.list_name_encoded === listName) ?? null
-      books.value = list.value?.books ?? []
+      list.value = data;
     })
     .catch(() => {
       errorMessage.value = 'Failed to fetch best sellers lists.'
@@ -28,7 +25,7 @@ onMounted(() => {
   <main>
     <h2>Best Sellers - {{ list?.display_name }}</h2>
     <ul>
-      <li v-for="book in books" :key="book.book_uri">
+      <li v-for="book in list?.books" :key="book.book_uri">
         <h3>{{ book.title }}</h3>
         <p>Author: {{ book.author }}</p>
         <p>Description: {{ book.description }}</p>
