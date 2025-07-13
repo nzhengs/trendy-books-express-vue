@@ -6,11 +6,11 @@ const lists = ref<List[]>([])
 const errorMessage = ref<string | null>(null)
 
 onMounted(() => {
-  fetch('/api/books')
+  fetch('/api/books/lists')
     .then((res) => res.json())
-    .then((res) => {
+    .then((data) => {
       errorMessage.value = null
-      lists.value = res.results.lists
+      lists.value = data
     })
     .catch(() => {
       errorMessage.value = 'Failed to fetch best sellers lists.'
